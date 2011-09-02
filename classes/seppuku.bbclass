@@ -43,7 +43,7 @@ def seppuku_login(opener, login, user, password):
     if result.code != 200:
         return False
     txt = result.read()
-    if not '<a href="relogin.cgi">Log&nbsp;out</a>' in txt:
+    if not '<a href="index.cgi?logout=1">Log&nbsp;out</a>' in txt:
         return False
 
     return True
@@ -71,9 +71,9 @@ def seppuku_find_bug_report_old():
 
         def handle_starttag(self, tag, attr):
             if self.state == self.STATE_NONE and tag.lower() == "tr":
-                if len(attr) == 1 and attr[0][0] == 'class' and \
-                    ('bz_normal' in attr[0][1] or 'bz_blocker' in attr[0][1] or 'bz_enhancement' in attr[0][1] or 'bz_major' in attr[0][1] or 'bz_minor' in attr[0][1] or 'bz_trivial' in attr[0][1] or 'bz_critical' in attr[0][1] or 'bz_wishlist' in attr[0][1]) \
-                    and 'bz_P' in attr[0][1]:
+                if len(attr) == 2 and attr[1][0] == 'class' and \
+                    ('bz_normal' in attr[1][1] or 'bz_blocker' in attr[1][1] or 'bz_enhancement' in attr[1][1] or 'bz_major' in attr[1][1] or 'bz_minor' in attr[1][1] or 'bz_trivial' in attr[1][1] or 'bz_critical' in attr[1][1] or 'bz_wishlist' in attr[1][1]) \
+                    and 'bz_bugitem' in attr[1][1]:
                     self.state = self.STATE_FOUND_TR
             elif self.state == self.STATE_FOUND_TR and tag.lower() == "td":
                 self.state += 1
@@ -389,5 +389,4 @@ python seppuku_eventhandler() {
         # store bug number for oestats-client
         if bug_number:
             bb.data.setVar('OESTATS_BUG_NUMBER', bug_number, event.data)
-            bb.data.setVar('OESTATS_BUG_TRACKER', "http://bugs.openembedded.net/", event.data)
 }
