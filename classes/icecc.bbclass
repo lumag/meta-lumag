@@ -100,6 +100,10 @@ def use_icc(bb,d):
             #bb.note(package_tmp, ' found in blacklist, disable icecc')
             return "no"
 
+    if bb.data.getVar('PARALLEL_MAKE', d) == "":
+        bb.note(package_tmp, " ", bb.data.expand('${PV}', d), " has empty PARALLEL_MAKE, disable icecc")
+        return "no"
+
     return "yes"
 
 def icc_is_kernel(bb, d):
