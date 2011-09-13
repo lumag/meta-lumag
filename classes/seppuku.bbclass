@@ -319,7 +319,7 @@ python seppuku_eventhandler() {
         passw   = bb.data.getVar("SEPPUKU_PASS",  data, True)
         product = bb.data.getVar("SEPPUKU_PRODUCT", data, True)
         component = bb.data.getVar("SEPPUKU_COMPONENT", data, True)
-	proxy	= bb.data.getVar('HTTP_PROXY', data, True )
+	proxy	= bb.data.getVar('http_proxy', data, True )
 	if (proxy):
 		phl = urllib2.ProxyHandler({'http' : proxy})
 		poster.add_handler(phl)
