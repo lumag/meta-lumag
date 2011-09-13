@@ -56,7 +56,7 @@ def oestats_send(d, server, action, vars = {}, files = {}):
 		"Content-type": "multipart/form-data; boundary=%s" % bound,
 		"Content-length": str(len(body))}
 
-	proxy	= bb.data.getVar('HTTP_PROXY', d, True )
+	proxy	= bb.data.getVar('http_proxy', d, True )
 	if (proxy):
 		phl = urllib2.ProxyHandler({'http' : proxy})
 		opener = urllib2.build_opener(phl)
