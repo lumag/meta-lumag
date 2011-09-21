@@ -191,6 +191,9 @@ python oestats_eventhandler () {
 	if e.data is None or getName(e) == "MsgNote":
 		return
 
+	if bb.data.getVar('OESTATS_NO_STATS', e.data, True) == "1":
+		return
+
 	server = bb.data.getVar('OESTATS_SERVER', e.data, True)
 	builder = bb.data.getVar('OESTATS_BUILDER', e.data, True)
 	if not server or not builder:
