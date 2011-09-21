@@ -69,6 +69,9 @@ def oestats_send(d, server, action, vars = {}, files = {}):
 	
 	return data
 
+# Some distros (Angstrom) override DISTRO and provide user value in USERDISTRO
+# Some (micro) don't. Be compatible
+USERDISTRO ?= "${DISTRO}"
 def oestats_start(server, builder, d):
 	import bb
 	import os.path
