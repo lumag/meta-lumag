@@ -1,0 +1,22 @@
+Index: libselinux-2.7/src/procattr.c
+===================================================================
+--- libselinux-2.7.orig/src/procattr.c
++++ libselinux-2.7/src/procattr.c
+@@ -24,7 +24,7 @@ static __thread char destructor_initiali
+ 
+ #ifndef __BIONIC__
+ /* Bionic declares this in unistd.h and has a definition for it */
+-static pid_t gettid(void)
++static pid_t sys_gettid(void)
+ {
+ 	return syscall(__NR_gettid);
+ }
+@@ -89,7 +89,7 @@ static int openattr(pid_t pid, const cha
+ 		if (fd >= 0 || errno != ENOENT)
+ 			goto out;
+ 		free(path);
+-		tid = gettid();
++		tid = sys_gettid();
+ 		rc = asprintf(&path, "/proc/self/task/%d/attr/%s", tid, attr);
+ 	} else {
+ 		errno = EINVAL;
